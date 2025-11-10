@@ -1,0 +1,13 @@
+builders:
+  measure_cpu:
+    import: "package:clean_ressource_tracker/builder.dart"
+    builder_factories: ["measureCpuActiveTimeBuilder"]
+    build_extensions: {".dart": [".cpu_active_time.decorator.dart"]}
+    auto_apply: dependents
+    build_to: source
+  create_builder:
+    import: "package:clean_ressource_tracker/builder.dart"
+    builder_factories: [ "withBuilder" ]
+    build_extensions: { ".dart": [ ".builder.dart" ] }
+    auto_apply: dependents
+    build_to: source
