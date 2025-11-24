@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:flutter/services.dart';
 
+/// Platform channel entry
+/// Method channel calling getCPUTime
 class CPUActiveTImePlatformChannel {
   static const MethodChannel CPUChannel = MethodChannel(
     'alina.simon.measuring_ressources_plugin/cputime',

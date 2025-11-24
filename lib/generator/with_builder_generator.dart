@@ -4,8 +4,12 @@ import 'package:source_gen/source_gen.dart';
 
 import '../annotations.dart';
 
-class WithBuilderGenerator
-    extends GeneratorForAnnotation<WithBuilder> {
+
+/// Generator for the @WithBuilder annotation
+/// Will create a Builder for the annotated class
+/// Will provide an add method to cluster  decorators and
+/// a build method to return the constructed object
+class WithBuilderGenerator extends GeneratorForAnnotation<WithBuilder> {
   @override
   generateForAnnotatedElement(
     Element element,
@@ -18,6 +22,8 @@ class WithBuilderGenerator
         element: element,
       );
     }
+
+    // class signature, attributes and constructor
     final generatedClassName = "${element.name}Builder";
     // generate the code inside the buffer
     final buffer = StringBuffer();
@@ -26,8 +32,10 @@ class WithBuilderGenerator
     buffer.writeln("  final ${element.name} _inner;");
     buffer.writeln("  $generatedClassName(this._inner);");
 
+    // private attribute
     buffer.writeln("  final List<Function(${element.name})> _decorators = [];");
 
+    // method to add decorators
     buffer.writeln("  // append a decorator");
     buffer.writeln("  $generatedClassName add(");
     buffer.writeln("    Function(${element.name}) decorator) {");
@@ -35,6 +43,7 @@ class WithBuilderGenerator
     buffer.writeln("    return this;");
     buffer.writeln("  }");
 
+    // method to build the object
     buffer.writeln("  // stack all decorators");
     buffer.writeln("  ${element.name} build() {");
     buffer.writeln("    var result = _inner;");
