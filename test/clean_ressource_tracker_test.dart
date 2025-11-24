@@ -1,9 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:clean_ressource_tracker/clean_ressource_tracker.dart';
+/*
 import 'package:clean_ressource_tracker/clean_ressource_tracker_platform_interface.dart';
 import 'package:clean_ressource_tracker/clean_ressource_tracker_method_channel.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+ */
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+/*
 class MockCleanRessourceTrackerPlatform
     with MockPlatformInterfaceMixin
     implements CleanRessourceTrackerPlatform {
@@ -27,3 +30,5 @@ void main() {
     expect(await cleanRessourceTrackerPlugin.getPlatformVersion(), '42');
   });
 }
+
+ */

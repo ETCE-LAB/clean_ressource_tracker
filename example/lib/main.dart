@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:clean_ressource_tracker/clean_ressource_tracker.dart';
 
+/*
 void main() {
   runApp(const MyApp());
 }
@@ -61,3 +62,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+
+ */
