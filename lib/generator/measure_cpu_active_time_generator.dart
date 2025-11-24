@@ -37,39 +37,43 @@ class MeasureCpuActiveTimeGenerator
       final name = method.name;
       final returnType = method.returnType.getDisplayString();
 
-      final paramDecl = method.formalParameters
-          .map((p) => '${p.type.getDisplayString()} ${p.name}')
+
+      final nameAndTypeParams = method.formalParameters
+          .map((p) {
+            final type = p.type.getDisplayString();
+            final name = p.name;
+            return '$type $name';
+          })
           .join(', ');
-
-
-      final isAsync =
-          method.returnType.isDartAsyncFuture;
 
       final nameParams = method.formalParameters.map((p) => p.name).join(', ');
 
       buffer.writeln('  @override');
-      buffer.writeln(
-          '  $returnType $name($paramDecl) ${isAsync ? 'async' : ''} {');
-
-      // start with measuring
-      buffer.writeln(
-        '    final start = await CPUActiveTImePlatformChannel.getCPUTime();',
-      );
-      // calling inner method
-      if (isAsync) {
-        buffer.writeln(
-            '    final result = await _inner.$name($nameParams);');
-      } else {
-        buffer.writeln(
-            '    final result = _inner.$name($nameParams);');
+      if(method.returnType.isDartAsyncFuture){
+        buffer.writeln('  $returnType $name($nameAndTypeParams) async {');
+      } else{
+        buffer.writeln('  $returnType $name($nameAndTypeParams) {');
       }
-      // end measuring
-      buffer.writeln(
-        '    final end = await CPUActiveTImePlatformChannel.getCPUTime();',
-      );
-      // print CPU time difference
-      buffer.writeln('    print("CPU time for $name: \${end - start}ms");');
-      buffer.writeln('    return result;');
+      if(method.returnType.isDartAsyncFuture){
+        // start with measuring
+        buffer.writeln(
+          '    final start = await CPUActiveTImePlatformChannel.getCPUTime();',
+        );
+        // calling inner method
+        buffer.writeln('    final result = await _inner.$name($nameParams);');
+        // end measuring
+        buffer.writeln(
+          '    final end = await CPUActiveTImePlatformChannel.getCPUTime();',
+        );
+        // print CPU time difference
+        buffer.writeln('    print("CPU time for $name: \${end - start}ms");');
+        buffer.writeln('    return result;');
+      } else{
+        // calling inner method
+        buffer.writeln('    final result = _inner.$name($nameParams);');
+        buffer.writeln('    return result;');
+      }
+
 
       buffer.writeln('  }');
     }
