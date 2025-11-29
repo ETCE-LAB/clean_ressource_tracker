@@ -1,0 +1,9 @@
+targets:
+  $default:
+    builders:
+      clean_ressource_tracker|measure_cpu:
+        generate_for:
+          - lib/**/*.dart
+      clean_ressource_tracker|create_builder:
+        generate_for:
+          - lib/**/*.dart
