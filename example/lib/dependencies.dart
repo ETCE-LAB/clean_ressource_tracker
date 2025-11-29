@@ -11,5 +11,9 @@ Future<void> initDependencies() async {
   // Blocs
   ic.registerFactory<CounterBloc>(() => CounterBloc(ic()));
   // Services
-  ic.registerLazySingleton<CountService>(() => CountRepository());
+  ic.registerLazySingleton<CountService>(
+    () => CountServiceBuilder(
+      CountRepository(),
+    ).add((s) => CountServiceCpuActiveTimeDecorator(s)).build(),
+  );
 }
