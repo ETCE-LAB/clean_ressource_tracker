@@ -4,7 +4,9 @@ import UIKit
 public class CleanRessourceTrackerPlugin: NSObject, FlutterPlugin {
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "alina.simon.measuring_ressources_plugin/cputime", binaryMessenger: registrar.messenger())
+        let channel = FlutterMethodChannel(
+            name: "alina.simon.measuring_ressources_plugin/cputime",
+            binaryMessenger: registrar.messenger())
         let instance = CleanRessourceTrackerPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
